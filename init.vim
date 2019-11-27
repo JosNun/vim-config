@@ -34,16 +34,25 @@ set tabstop=4
 " When indenting with >, use 4 spaces
 set shiftwidth=4
 
-
 " Hide buffers instead of closing them
+
 set hidden
 
 " Make , the leader, because \ is hard
 let mapleader = ","
 
+" add a line on the 80th column
+set colorcolumn=80
+
+" highlight the cursor's row
+set cursorline
+
+
 " Use only the quickfix list for go
 let g:go_list_type = "quickfix"
 
+" Enable the mouse (yes, I know)
+set mouse=a
 
 "
 " KEY REMAPPINGS
@@ -84,7 +93,8 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'fatih/molokai'
+" Theme
+Plug 'kaicataldo/material.vim'
 
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
@@ -94,34 +104,29 @@ Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-surround'
 
+" Someday... This could probably be replaced by the functionality provided by
+" vim-startify
 Plug 'tpope/vim-obsession'
 
 Plug 'vim-airline/vim-airline'
 
+" File browser
 Plug 'scrooloose/nerdtree'
 
 Plug 'sheerun/vim-polyglot'
 
+" Quote, brackes, paren autoclosing
 Plug 'Raimondi/delimitMate'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Add additional plugins here
 
 call plug#end()
 
 
-" set statusline=%{ObsessionStatus()}
 let g:airline_section_y = '%{ObsessionStatus()}'
 
 
@@ -131,10 +136,9 @@ let g:airline_section_y = '%{ObsessionStatus()}'
 "
 
 " Colorscheme
-set t_Co=256
-let g:rehash256 = 1
-let g:molokai_original = 1
-colorscheme molokai
+let g:material_terminal_italics = 1
+
+colorscheme material
 
 " Reloads vimrc after saving but keep cursor position
 if !exists('*ReloadVimrc')
